@@ -11,7 +11,7 @@
   <extension point="xbmc.addon.metadata">
     <language></language>
     <platform>all</platform>
-    <summary lang="en">The well-being channel</summary>
-    <description lang="en">Watch the Free Exercises from the well-being website www.myzen.tv</description>
+    <summary lang="en">funny pictures</summary>
+    <description lang="en">Cheezburger: All your funny in one place</description>
   </extension>
 </addon>
