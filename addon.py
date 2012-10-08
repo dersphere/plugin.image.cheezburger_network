@@ -144,10 +144,6 @@ def show_random(category_id):
     return plugin.finish(items, **kwargs)
 
 
-def log(msg):
-    print('%s addon: %s' % (__name__, msg))
-
-
 def get_cached(func, *args, **kwargs):
     '''Return the result of func with the given args and kwargs
     from cache or execute it if needed'''
@@ -161,7 +157,7 @@ def _(string_id):
     if string_id in STRINGS:
         return plugin.get_string(STRINGS[string_id])
     else:
-        log('String is missing: %s' % string_id)
+        plugin.log.warning('String is missing: %s' % string_id)
         return string_id
 
 if __name__ == '__main__':
