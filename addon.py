@@ -61,7 +61,7 @@ def show_sites():
             site_id=site['id'],
             page='1',
         ),
-    } for site in api.get_sites()]
+    } for site in get_cached(api.get_sites)]
     kwargs = {
         'update_listing': 'update' in plugin.request.args,
         'view_mode': 'thumbnail' if force_thumbnail else None
@@ -77,7 +77,7 @@ def show_categories():
             'show_random',
             category_id=category['id'],
         ),
-    } for category in api.get_categories()]
+    } for category in get_cached(api.get_categories)]
     return plugin.finish(items)
 
 
@@ -146,6 +146,15 @@ def show_random(category_id):
 
 def log(msg):
     print('%s addon: %s' % (__name__, msg))
+
+
+def get_cached(func, *args, **kwargs):
+    '''Return the result of func with the given args and kwargs
+    from cache or execute it if needed'''
+    @plugin.cached(kwargs.pop('TTL', 1440))
+    def wrap(func_name, *args, **kwargs):
+        return func(*args, **kwargs)
+    return wrap(func.__name__, *args, **kwargs)
 
 
 def _(string_id):
