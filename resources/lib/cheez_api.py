@@ -40,7 +40,7 @@ class CheezburgerApi():
     def get_sites(self):
         tree = self.__get_tree('site')
         sites = [{
-            'id': site['SiteId'].split('/')[-1],
+            'id': self.__id(site['SiteId']),
             'api_url': site['SiteId'],
             'title': site['Name'],
             'description': site['Description'],
@@ -52,7 +52,7 @@ class CheezburgerApi():
     def get_categories(self):
         tree = self.__get_tree('category')
         categories = [{
-            'id': category['CategoryId'].split('/')[-1],
+            'id': self.__id(category['CategoryId']),
             'api_url': category['CategoryId'],
             'title': category['CategoryName'],
         } for category in tree['ArrayOfCategoryDetail']['CategoryDetail']]
@@ -65,7 +65,7 @@ class CheezburgerApi():
         )
         tree = self.__get_tree(url)
         assets = [{
-            'id': asset['AssetId'].split('/')[-1],
+            'id': self.__id(asset['AssetId']),
             'type': asset['AssetType'],
             'api_url': asset['AssetId'],
             'title': asset['Title'],
@@ -81,7 +81,7 @@ class CheezburgerApi():
         )
         tree = self.__get_tree(url)
         pictures = [{
-            'id': picture['LolId'].split('/')[-1],
+            'id': self.__id(picture['LolId']),
             'api_url': picture['LolId'],
             'title': picture['Title'],
             'description': picture['FullText'],
@@ -108,8 +108,9 @@ class CheezburgerApi():
         tree = xmltodict.parse(response)
         return tree
 
-    def __pathify(self, url):
-        return url.replace(CheezburgerApi.API_URL, '')
+    @staticmethod
+    def __id(url):
+        return url.split('/')[-1]
 
     @staticmethod
     def log(text):
