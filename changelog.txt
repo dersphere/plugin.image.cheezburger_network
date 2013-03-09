@@ -1,4 +1,5 @@
 1.0.0 (09.03.2013)
+ - fixed browsing by site
  - migrated to xbmcswift2 v2.4.0
  - updated translations
  - cosmetics
