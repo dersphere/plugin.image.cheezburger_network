@@ -20,6 +20,8 @@
 from urllib2 import urlopen, Request, HTTPError, URLError
 import xmltodict
 
+import xbmc
+
 
 class NetworkError(Exception):
     pass
@@ -110,7 +112,6 @@ class CheezburgerApi():
                 raise NetworkError(error)
         except URLError, error:
             raise NetworkError(error)
-        print response
         self.log('got %d bytes' % len(response))
         tree = xmltodict.parse(response)
         return tree
@@ -121,7 +122,7 @@ class CheezburgerApi():
 
     @staticmethod
     def log(text):
-        print 'CheezburgerApi: %s' % text
+        xbmc.log(u'CheezburgerApi: %s' % text)
 
 
 if __name__ == '__main__':
