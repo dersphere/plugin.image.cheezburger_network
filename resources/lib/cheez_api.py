@@ -77,7 +77,7 @@ class CheezburgerApi():
             'api_url': asset['AssetId'],
             'title': asset['Title'],
             'description': asset['FullText'],
-            'image': asset['ImageUrl'],
+            'image': asset['ImageUrl'].replace('https://', 'http://'),
         } for asset in asset_generator]
         return assets
 
@@ -92,7 +92,7 @@ class CheezburgerApi():
             'api_url': picture['LolId'],
             'title': picture['Title'],
             'description': picture['FullText'],
-            'image': picture['LolImageUrl'],
+            'image': picture['LolImageUrl'].replace('https://', 'http://'),
         } for picture in tree['Lols']['Random']['Picture']]
         return pictures
 
